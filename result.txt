@@ -1,4 +1,24 @@
+create database employee_db;
+
+use database employee_db;
+
+create table Employee(
+    id INT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    age INT NOT NULL,
+    gender VARCHAR(10),
+    companyId INT NOT NULL,
+    salary INT NOT NULL
+))
+
+create table Company(
+    id INT PRIMARY KEY,
+    companyName VARCHAR(255) NOT NULL,
+    employeesNumber INT NOT NULL
+)
+
 practice1
+select * from Employee where name like '%n%' and salary > 6000;
  +----+------------+-----+----------+-----------+--------+
  | id | name       | age | gender   | companyId | salary |
  +----+------------+-----+----------+-----------+--------+
@@ -6,33 +26,21 @@ practice1
  +----+------------+-----+----------+-----------+--------+
 
 practice2
- +----+------------+------------+
- | id | companyName| name       |
- +----+------------+------------+
- |  1 | baidu      | xiaoming   |   
- +----+------------+------------+ 
- |  2 | alibaba    | xiaohong   | 
- +----+------------+------------+ 
- |  3 | tenxun     | xiaozhi    | 
- +----+------------+------------+ 
+select c.companyName,e.name from employee e right join Company c on e.companyId=c.id group by c.id
+
++-------------+---------------+
+| companyName | max(a.salary) |
++-------------+---------------+
+| baidu       |          6000 |
+| alibaba     |          7000 |
+| tengxun     |          8000 |
++-------------+---------------+
 
 practice3
- +----+------------+------------+
- | id | companyName| avgSalary  |
- +----+------------+------------+
- |  1 | baidu      |   5000     |   
- +----+------------+------------+ 
- |  2 | alibaba    |   6500     | 
- +----+------------+------------+ 
- |  3 | tenxun     |   8000     | 
- +----+------------+------------+   
+select c.companyName,avg(e.salary) from employee e right join company c on e.companyId=c.id group by c.id desc limit 1;
 
-practice4
- +----+------------+-----+----------+-----------+--------+-------------+--------+
- | id | name       | age | gender   | companyId | salary | companyName | avgsal |
- +----+------------+-----+----------+-----------+--------+-------------+--------+
- |  0 | xiaoming   |  20 |   male   |         0 |   6000 |   baidu     |  5000  |
- +----+------------+-----+----------+-----------+--------+-------------+--------+
- |  1 | xiaohong   |  19 |   male   |         1 |   7000 |   alibaba   |  6500  |
- +----+------------+-----+----------+-----------+--------+-------------+--------+
- 
++-------------+---------------+
+| companyName | avg(a.salary) |
++-------------+---------------+
+| tengxun     |     8000.0000 |
++-------------+---------------+
